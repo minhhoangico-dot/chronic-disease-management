@@ -1,6 +1,11 @@
 
 import { supabase } from '@/lib/supabase';
 
+interface PatientInfo {
+    his_patient_code: string;
+    patient_name: string;
+}
+
 async function getPredictions() {
     const { data, error } = await supabase
         .from('medicine_predictions')
@@ -64,8 +69,8 @@ export default async function PredictionReport() {
                                 predictions.map((item) => (
                                     <tr key={item.id} className="hover:bg-slate-50 transition-colors">
                                         <td className="px-6 py-4">
-                                            <div className="font-medium text-slate-900">{(item.patients as any)?.patient_name}</div>
-                                            <div className="text-xs text-slate-400 font-mono">{(item.patients as any)?.his_patient_code}</div>
+                                            <div className="font-medium text-slate-900">{(item.patients as PatientInfo | null)?.patient_name}</div>
+                                            <div className="text-xs text-slate-400 font-mono">{(item.patients as PatientInfo | null)?.his_patient_code}</div>
                                         </td>
                                         <td className="px-6 py-4 font-medium text-blue-600">{item.medicine_name}</td>
                                         <td className="px-6 py-4 text-right font-bold text-slate-800">
@@ -73,8 +78,8 @@ export default async function PredictionReport() {
                                         </td>
                                         <td className="px-6 py-4 text-center">
                                             <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium w-fit mx-auto ${item.prediction_confidence === 'High' ? 'bg-emerald-100 text-emerald-800' :
-                                                    item.prediction_confidence === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
-                                                        'bg-red-100 text-red-800'
+                                                item.prediction_confidence === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
+                                                    'bg-red-100 text-red-800'
                                                 }`}>
                                                 {item.prediction_confidence || 'N/A'}
                                             </span>

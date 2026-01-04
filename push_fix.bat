@@ -1,14 +1,14 @@
 @echo off
 echo ==========================================
-echo   Chronic Disease Management - Build Fix
+echo   Chronic Disease Management - Push Fix
 echo ==========================================
 echo.
-echo 1. Adding updated package files...
-git add package.json package-lock.json
+echo 1. Adding all changed files...
+git add .
 
 echo.
 echo 2. Committing fix...
-git commit -m "Fix build: Add @types/pg"
+git commit -m "Fix build: Replace any types with interfaces"
 
 echo.
 echo 3. Pushing to GitHub...

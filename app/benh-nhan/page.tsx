@@ -1,6 +1,11 @@
 
 import { supabase } from '@/lib/supabase';
 
+interface PatientCondition {
+    diagnosis_name: string;
+    icd_code: string;
+}
+
 async function getPatients() {
     const { data, error } = await supabase
         .from('patients')
@@ -72,7 +77,7 @@ export default async function PatientList() {
                                         <td className="px-6 py-4">
                                             <div className="flex flex-wrap gap-1">
                                                 {patient.patient_conditions && patient.patient_conditions.length > 0 ? (
-                                                    patient.patient_conditions.map((cond: any, idx: number) => (
+                                                    patient.patient_conditions.map((cond: PatientCondition, idx: number) => (
                                                         <span key={idx} className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-orange-50 text-orange-700 border border-orange-100">
                                                             {cond.icd_code}
                                                         </span>
